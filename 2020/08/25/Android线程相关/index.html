@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Android线程相关 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="线程cpu调度的最小单位 进程进程是程序运行资源分配的最小单位 并发和并行并行：同一时间能够执行不同任务，4核cpu有四个线程，并行数量就是4，如果超频，并行数量位8 并发： 单位时间内能执行多少不同任务 启动线程的方式1 1234567Thread thread &#x3D; new Thread()&amp;#123;   @Override   public void run() &amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android线程相关">
+<meta property="og:url" content="http://yoursite.com/2020/08/25/Android%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="线程cpu调度的最小单位 进程进程是程序运行资源分配的最小单位 并发和并行并行：同一时间能够执行不同任务，4核cpu有四个线程，并行数量就是4，如果超频，并行数量位8 并发： 单位时间内能执行多少不同任务 启动线程的方式1 1234567Thread thread &#x3D; new Thread()&amp;#123;   @Override   public void run() &amp;#123;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-25T07:12:50.000Z">
+<meta property="article:modified_time" content="2020-08-25T07:15:31.224Z">
+<meta property="article:author" content="Youfats">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android线程相关" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/25/Android%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3/" class="article-date">
+  <time datetime="2020-08-25T07:12:50.000Z" itemprop="datePublished">2020-08-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android线程相关
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h5><p>cpu调度的最小单位</p>
+<h5 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h5><p>进程是程序运行资源分配的最小单位</p>
+<h5 id="并发和并行"><a href="#并发和并行" class="headerlink" title="并发和并行"></a>并发和并行</h5><p>并行：同一时间能够执行不同任务，4核cpu有四个线程，并行数量就是4，如果超频，并行数量位8</p>
+<p>并发： 单位时间内能执行多少不同任务</p>
+<h5 id="启动线程的方式"><a href="#启动线程的方式" class="headerlink" title="启动线程的方式"></a>启动线程的方式</h5><p>1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Thread thread &#x3D; new Thread()&#123;</span><br><span class="line">   @Override</span><br><span class="line">   public void run() &#123;</span><br><span class="line">      </span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line">thread.start();</span><br></pre></td></tr></table></figure>
+<p>2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Runnable runnable &#x3D; new Runnable() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">new Thread(runnable).start();</span><br></pre></td></tr></table></figure>
+<p>3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Callable&lt;String&gt; callable &#x3D; new Callable&lt;String&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public String call() throws Exception &#123;</span><br><span class="line">        return &quot;test&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">FutureTask&lt;String&gt; futureTask &#x3D; new FutureTask&lt;&gt;(callable);</span><br><span class="line">new Thread(futureTask).start();</span><br><span class="line">System.out.println(futureTask.get());&#x2F;&#x2F; get为阻塞方法</span><br></pre></td></tr></table></figure>
+
+<h5 id="中止"><a href="#中止" class="headerlink" title="中止"></a>中止</h5><p>suspend()、resume()和stop()这些方法是操作线程的方法，过时了，不建议用，会导致资源不会被释放</p>
+<p>正确中止有三种</p>
+<p>interrupt(),协作式，并不会马上中止：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">private static class UseThread extends Thread&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        String threadName &#x3D; Thread.currentThread().getName();</span><br><span class="line">        int i &#x3D; 0;</span><br><span class="line">        while (true) &#123;</span><br><span class="line">            System.out.println(threadName + i++);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static void main(String[] args) throws Exception &#123;</span><br><span class="line">    UseThread useThread &#x3D; new UseThread();</span><br><span class="line">    useThread.start();</span><br><span class="line">    Thread.sleep(20);</span><br><span class="line">    useThread.interrupt(); &#x2F;&#x2F; 这里调用后日志还会继续打印，说明单调用这个方法并不能中断线程</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>配合使用<code>isInterrupted()</code>方法来判断，当调用了interrupt() 后，isInterrupted() 返回true：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">private static class UseThread extends Thread&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        String threadName &#x3D; Thread.currentThread().getName();</span><br><span class="line">        int i &#x3D; 0;</span><br><span class="line">        while (!isInterrupted()) &#123; &#x2F;&#x2F; 相当于标识位</span><br><span class="line">            System.out.println(threadName + i++);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;结束了&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static void main(String[] args) throws Exception &#123;</span><br><span class="line">    UseThread useThread &#x3D; new UseThread();</span><br><span class="line">    useThread.start();</span><br><span class="line">    Thread.sleep(2000);</span><br><span class="line">    useThread.interrupt();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还有一个判断的方法<code>interrupted()</code>,会自动再把值改成false</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">private static class UseThread extends Thread&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        String threadName &#x3D; Thread.currentThread().getName();</span><br><span class="line">        int i &#x3D; 0;</span><br><span class="line">        while (!interrupted()) &#123;</span><br><span class="line">            System.out.println(threadName + i++);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;结束了&quot; + isInterrupted()); &#x2F;&#x2F; false，应为interrupted()会把值再变成false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static void main(String[] args) throws Exception &#123;</span><br><span class="line">    UseThread useThread &#x3D; new UseThread();</span><br><span class="line">    useThread.start();</span><br><span class="line">    Thread.sleep(2);</span><br><span class="line">    useThread.interrupt();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="一些其他的方法"><a href="#一些其他的方法" class="headerlink" title="一些其他的方法"></a>一些其他的方法</h5><h6 id="start"><a href="#start" class="headerlink" title="start()"></a>start()</h6><p>让一个线程进入就绪队列等待分配cpu，分到cpu后才调用实现的run()方法，start()方法不能重复调用。</p>
+<h6 id="yield"><a href="#yield" class="headerlink" title="yield()"></a>yield()</h6><p>使当前线程让出CPU占有权，但让出的时间是不可设定的。也不会释放锁资源，所有执行yield()的线程有可能在进入到可执行状态后马上又被执行。</p>
+<h6 id="join"><a href="#join" class="headerlink" title="join()"></a>join()</h6><p>把指定的线程加入到当前线程，可以将两个交替执行的线程合并为顺序执行的线程。比如在线程B中调用了线程A的Join()方法，直到线程A执行完毕后，才会继续执行线程B。</p>
+<h6 id="sleep"><a href="#sleep" class="headerlink" title="sleep()"></a>sleep()</h6><p>sleep方法是是一个静态方法，直接调用可以阻塞当前线程，sleep是不会释放对象锁</p>
+<h6 id="wait"><a href="#wait" class="headerlink" title="wait()"></a>wait()</h6><p>wait方法是object类里面，调用也是阻塞线程，但是会让出锁，通过notify或者notifyAll方法让线程重新进入就绪状态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">a(新建) --&gt;|start| b(就绪) </span><br><span class="line">b--&gt;|join| c(运行)</span><br><span class="line">f--&gt;|时间到或者interrupt| b</span><br><span class="line">c --&gt;|yield| b</span><br><span class="line">c--&gt; |sleep|f(阻塞)</span><br><span class="line">c --&gt;d(结束)</span><br><span class="line">c --&gt; |wait| e(阻塞)</span><br><span class="line">e --&gt;|notity或者notifyAll| b</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h4><h6 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h6><p>java的内置锁</p>
+<ul>
+<li>锁普通方法锁的是this当前对象</li>
+<li>锁静态方法锁的是当前类</li>
+<li>代码块里要看锁的是new出来的对象还是class</li>
+</ul>
+<h6 id="lock"><a href="#lock" class="headerlink" title="lock"></a>lock</h6><p>显式锁</p>
+<ul>
+<li>RenentrantLock</li>
+</ul>
+<p>可重入锁，会判断持有锁的是不是当前持有锁的线程，如果是，可以重新取得锁，例如一些递归的操作</p>
+<p>RenentrantLock的标准用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ReentrantLock lock &#x3D; new ReentrantLock();</span><br><span class="line"></span><br><span class="line">lock.lock();</span><br><span class="line">try&#123;</span><br><span class="line">    </span><br><span class="line">&#125;finally&#123;</span><br><span class="line">    &#x2F;&#x2F; 一定要在finally代码块中释放锁，不然会导致资源不被释放</span><br><span class="line">    lock.unlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ReentrantReadWriteLock</li>
+</ul>
+<p>可重入读写锁，读的时候如果没有写线程持有锁，那么可以允许多个读线程持有锁但不允许写线程持有锁；如果有写线程持有锁，那么不允许读线程持有锁，只能有一个写线程持有锁。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/25/Android%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3/" data-id="cke9m87dl0000auxg58esamzt" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/08/23/androidhandler-md/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">android handler</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/25/Android%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3/">Android线程相关</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/23/androidhandler-md/">android handler</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Youfats<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
